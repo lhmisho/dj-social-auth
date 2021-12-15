@@ -15,7 +15,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_super_user(self, username, email, password=None):
+    def create_superuser(self, username, email, password=None):
         if password is None:
             return TypeError('Password should not be none')
         user = self.create_user(username, email, password)
