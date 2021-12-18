@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 import jwt
-from .serializers import UserSerializer
+from .serializers import UserSerializer, LoginSerializer
 from .models import User
 from .utils import Util
 
@@ -48,3 +48,12 @@ class VerifyEmail(generics.GenericAPIView):
 
         except jwt.ExpiredSignatureError as e:
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginApiView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
