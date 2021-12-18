@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 import jwt
-from .serializers import UserSerializer, LoginSerializer
+from .serializers import UserSerializer, LoginSerializer, EmailVerificationSerializer
 from .models import User
 from .utils import Util
 
@@ -33,6 +33,7 @@ class UserRegisterView(generics.GenericAPIView):
 
 
 class VerifyEmail(generics.GenericAPIView):
+    serializer_class = EmailVerificationSerializer
 
     def get(self, request):
         token = request.GET.get('token')

@@ -52,3 +52,11 @@ class LoginSerializer(serializers.ModelSerializer):
             'tokens': user.tokens()
         }
         # return super(LoginSerializer, self).validate(attrs)
+
+
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=555)
+
+    class Meta:
+        model = User
+        fields = ['token']
